@@ -570,7 +570,6 @@
 
     <!-- MÚSICA DE FUNDO -->
     <audio id="bg-music" loop>
-        <!-- Áudio instrumental suave de demonstração -->
         <source src="musica.mp3" type="audio/mpeg">
     </audio>
     
@@ -626,7 +625,7 @@
         <h2 class="section-title">Nosso Convite Especial</h2>
         <p class="message-text">
             Há momentos que merecem ser celebrados com quem faz parte da nossa história.
-            Após oficializarmos nossa união no casamento civil, gostaríamos de compartilhar um almço especial ao lado da nossa família e dos nossos amigos.
+            Após oficializarmos nossa união no casamento civil, gostaríamos de compartilhar um almoço especial ao lado da nossa família e dos nossos amigos.
             <br><br>
             Será uma grande alegria contar com a sua presença nesse momento de celebração e carinho!
         </p>
@@ -695,34 +694,34 @@
         <div class="rsvp-section">
             <div class="foliage-divider" style="margin-top:0;">💌</div>
             <h2 class="section-title" style="text-align: center; margin-bottom: 10px;">Confirmação de Presença</h2>
-            <p style="text-align: center; color: var(--cinza-suave); margin-bottom: 30px;">Por favor, confirme sua presença até o dia 15/10/2026 para organizar-mos todos os detalhes com carinho.</p>
+            <p style="text-align: center; color: var(--cinza-suave); margin-bottom: 30px;">Por favor, confirme sua presença até o dia 15/10/2026 para organizarmos todos os detalhes com carinho.</p>
             
-            <form id="rsvpForm" onsubmit="handleRSVP(event)">
+            <form id="rsvpForm">
                 <div class="form-group">
                     <label for="nome">Nome Completo:</label>
-                    <input type="text" id="nome" class="form-control" placeholder="Digite seu nome completo" required>
+                    <input type="text" id="nome" name="Nome" class="form-control" placeholder="Digite seu nome completo" required>
                 </div>
 
                 <div class="form-group">
                     <label>Você irá comparecer?</label>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="presenca" value="Sim" checked> Sim, com certeza!
+                            <input type="radio" name="Presenca" value="Sim" checked> Sim, com certeza!
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="presenca" value="Nao"> Infelizmente não poderei
+                            <input type="radio" name="Presenca" value="Nao"> Infelizmente não poderei
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="acompanhantes">Quantidade de Acompanhantes (se houver):</label>
-                    <input type="number" id="acompanhantes" class="form-control" min="0" max="5" value="0">
+                    <input type="number" id="acompanhantes" name="Acompanhantes" class="form-control" min="0" max="5" value="0">
                 </div>
 
                 <div class="form-group">
                     <label for="mensagem_noivos">Mensagem para os Noivos (Opcional):</label>
-                    <textarea id="mensagem_noivos" class="form-control" rows="3" placeholder="Deixe um recado especial..."></textarea>
+                    <textarea id="mensagem_noivos" name="Mensagem" class="form-control" rows="3" placeholder="Deixe um recado especial..."></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit">Confirmar Presença</button>
@@ -776,51 +775,64 @@
 
     <!-- JAVASCRIPT / INTERATIVIDADE -->
     <script>
-        // Abertura do Envelope
+        // 1. Abertura do Envelope
         function openEnvelope() {
             const overlay = document.getElementById('envelope-overlay');
-            overlay.classList.add('hide');
+            if (overlay) {
+                overlay.classList.add('hide');
+            }
             
-            // Tentar tocar a música de fundo ao abrir o convite
             const music = document.getElementById('bg-music');
-            music.play().catch(e => console.log("A reprodução automática foi bloqueada pelo navegador. Use o botão de áudio."));
+            if (music) {
+                music.play().catch(e => console.log("A reprodução automática foi bloqueada pelo navegador."));
+            }
             
-            // Soltar confetes sutis na abertura
-            confetti({
-                particleCount: 60,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 60,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
         }
 
-        // Controle da Música de Fundo
+        // 2. Controle da Música de Fundo
         let isPlaying = false;
         function toggleMusic() {
             const music = document.getElementById('bg-music');
             const btn = document.getElementById('music-btn');
             
-            if (isPlaying) {
-                music.pause();
-                btn.innerHTML = '<i class="fa-solid fa-music"></i>';
-            } else {
-                music.play();
-                btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+            if (music && btn) {
+                if (isPlaying) {
+                    music.pause();
+                    btn.innerHTML = '<i class="fa-solid fa-music"></i>';
+                } else {
+                    music.play();
+                    btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+                }
+                isPlaying = !isPlaying;
             }
-            isPlaying = !isPlaying;
         }
 
-        // Contagem Regressiva
+        // 3. Contagem Regressiva
         const weddingDate = new Date('October 29, 2026 12:00:00').getTime();
 
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
 
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+
+            if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
             if (distance < 0) {
-                document.getElementById('days').innerText = "00";
-                document.getElementById('hours').innerText = "00";
-                document.getElementById('minutes').innerText = "00";
-                document.getElementById('seconds').innerText = "00";
+                daysEl.innerText = "00";
+                hoursEl.innerText = "00";
+                minutesEl.innerText = "00";
+                secondsEl.innerText = "00";
                 return;
             }
 
@@ -829,59 +841,72 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById('days').innerText = days < 10 ? '0' + days : days;
-            document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
-            document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+            daysEl.innerText = days < 10 ? '0' + days : days;
+            hoursEl.innerText = hours < 10 ? '0' + hours : hours;
+            minutesEl.innerText = minutes < 10 ? '0' + minutes : minutes;
+            secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
         }
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // FAQ Toggle
+        // 4. FAQ Toggle
         function toggleFAQ(element) {
-            element.classList.toggle('active');
+            if (element) {
+                element.classList.toggle('active');
+            }
         }
 
-        // RSVP Form + Confetes
-        function handleRSVP(event) {
-            event.preventDefault();
-            const form = document.getElementById('rsvp-form'); // certifique-se de que o id do seu <form> seja este
+        // 5. RSVP Form + Sheet.best
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('rsvpForm');
 
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
 
-    const submitBtn = form.querySelector('button[type="submit"]');
-    submitBtn.innerText = "Enviando...";
-    submitBtn.disabled = true;
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.innerText = "Enviando...";
+                        submitBtn.disabled = true;
+                    }
 
-    // Coleta os dados digitados pelos noivos/convidados
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData);
+                    data['Data/Hora'] = new Date().toLocaleString('pt-BR');
 
-    // Adiciona data e hora do envio automaticamente
-    data['Data/Hora'] = new Date().toLocaleString('pt-BR');
+                    fetch('https://api.sheetbest.com/sheets/c3a8a4c5-67eb-4687-a8a2-37eb574e0a32', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error('Erro no envio');
+                        alert('Presença confirmada com sucesso!');
+                        form.reset();
 
-    // COLE A SUA URL DO SHEET.BEST ENTRE AS ASPAS ABAIXO:
-    fetch('https://api.sheetbest.com/sheets/c3a8a4c5-67eb-4687-a8a2-37eb574e0a32', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        alert('Presença confirmada com sucesso!');
-        form.reset();
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        alert('Houve um erro ao enviar. Tente novamente.');
-    })
-.finally(() => {
-                submitBtn.innerText = "Confirmar Presença";
-                submitBtn.disabled = false;
-            });
+                        if (typeof confetti === 'function') {
+                            confetti({
+                                particleCount: 100,
+                                spread: 80,
+                                origin: { y: 0.5 }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        alert('Houve um erro ao enviar. Tente novamente.');
+                    })
+                    .finally(() => {
+                        if (submitBtn) {
+                            submitBtn.innerText = "Confirmar Presença";
+                            submitBtn.disabled = false;
+                        }
+                    });
+                });
+            }
         });
     </script>
 </body>
