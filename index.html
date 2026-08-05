@@ -3,864 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wellington & Thayana | Nosso Casamento</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
+    <title>Convite de Casamento</title>
+    <!-- Font Awesome para Ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Canvas Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Confetti JS -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     
     <style>
         :root {
-            --verde-musgo: #4A5D36;
-            --verde-escuro: #354326;
-            --verde-suave: #EBF0E6;
-            --dourado: #B89B5E;
-            --dourado-hover: #9E834B;
-            --off-white: #F9F9F6;
-            --branco: #FFFFFF;
-            --cinza-escuro: #333333;
-            --cinza-suave: #666666;
-            --fonte-titulo: 'Cormorant Garamond', serif;
-            --fonte-corpo: 'Poppins', sans-serif;
+            --primary-color: #4A5D36; /* Verde Musgo */
+            --accent-color: #D4AF37;  /* Dourado */
+            --bg-color: #F9F8F6;      /* Off-white */
+            --text-color: #333333;
+            --white: #FFFFFF;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: var(--fonte-corpo);
-            color: var(--cinza-escuro);
-            background-color: var(--off-white);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        /* ----- BOTÃO DE MÚSICA DE FUNDO ----- */
-        .music-control {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 99;
-            background: var(--verde-musgo);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            border: 2px solid var(--dourado);
+            min-height: 100vh;
         }
 
-        .music-control:hover {
-            transform: scale(1.1);
-            background: var(--verde-escuro);
-        }
-
-        .music-control i {
-            font-size: 1.2rem;
-        }
-
-        /* ----- ENVELOPE / ABERTURA ANIMADA ----- */
+        /* Envelope Overlay */
         #envelope-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #2D3724;
-            background-image: radial-gradient(circle at center, #3A472E 0%, #1E2518 100%);
-            z-index: 1000;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-color);
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 1s ease, visibility 1s ease;
-            padding: 20px;
+            z-index: 1000;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
         #envelope-overlay.hide {
             opacity: 0;
             visibility: hidden;
-            pointer-events: none;
         }
 
-        .envelope-wrapper {
-            position: relative;
-            width: 320px;
-            height: 220px;
-            background-color: var(--verde-musgo);
-            border-radius: 6px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: transform 0.3s ease;
-            border: 1px solid rgba(184, 155, 94, 0.4);
-        }
-
-        .envelope-wrapper:hover {
-            transform: translateY(-5px);
+        .envelope-card {
+            background: var(--bg-color);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 2px solid var(--accent-color);
+            max-width: 90%;
+            width: 400px;
         }
 
         .wax-seal {
-            width: 70px;
-            height: 70px;
-            background: radial-gradient(circle, var(--dourado) 0%, #8C723E 100%);
+            width: 80px;
+            height: 80px;
+            background-color: var(--accent-color);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.4);
-            border: 2px dashed rgba(255,255,255,0.3);
-            color: #2D3724;
-            font-family: var(--fonte-titulo);
-            font-weight: 700;
-            font-size: 1.5rem;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.3);
-            z-index: 2;
-            transition: transform 0.5s ease;
-        }
-
-        .envelope-wrapper:hover .wax-seal {
-            transform: scale(1.08);
-        }
-
-        .envelope-title {
-            color: var(--off-white);
-            font-family: var(--fonte-titulo);
-            font-size: 2rem;
-            margin-top: 30px;
-            letter-spacing: 2px;
-            text-align: center;
-        }
-
-        .envelope-subtitle {
-            color: var(--dourado);
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-top: 5px;
-        }
-
-        /* ----- HERO SECTION ----- */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: var(--branco);
-            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), 
-                        url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            padding: 20px;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            animation: fadeIn 1.5s ease-out;
-            padding: 40px;
-            background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-        }
-
-        .hero h1 {
-            font-family: var(--fonte-titulo);
-            font-size: 4.5rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero p.tagline {
+            margin: 20px auto;
+            color: var(--white);
+            font-weight: bold;
             font-size: 1.2rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #F0E6D2;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        .btn-gold {
-            display: inline-block;
-            padding: 14px 36px;
-            background-color: var(--dourado);
-            color: var(--branco);
-            text-decoration: none;
-            border-radius: 30px;
-            font-size: 0.95rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            border: none;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
         }
 
-        .btn-gold:hover {
-            background-color: var(--dourado-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        .wax-seal:hover {
+            transform: scale(1.05);
         }
 
-        /* ----- DETALHES BOTÂNICOS / DIVISORES ----- */
-        .foliage-divider {
-            text-align: center;
-            margin: 40px 0 20px 0;
-            color: var(--verde-musgo);
-            font-size: 1.8rem;
-            opacity: 0.8;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 80px 20px;
-        }
-
-        /* ----- CONTAGEM REGRESSIVA ----- */
-        .countdown-section {
-            background-color: var(--verde-musgo);
-            color: var(--branco);
-            text-align: center;
-            padding: 60px 20px;
-            position: relative;
-        }
-
-        .countdown-title {
-            font-family: var(--fonte-titulo);
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: var(--off-white);
-        }
-
-        .timer {
+        /* Botão Flutuante de Música */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 1.2rem;
             display: flex;
             justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
+            align-items: center;
         }
 
-        .timer-box {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        /* Main Content */
+        .container {
+            width: 100%;
+            max-width: 600px;
             padding: 20px;
-            border-radius: 8px;
-            min-width: 110px;
+            text-align: center;
         }
 
-        .timer-box span {
+        header {
+            margin: 40px 0 20px 0;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .photo-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 3px solid var(--accent-color);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: auto;
             display: block;
         }
 
-        .timer-box .number {
-            font-family: var(--fonte-titulo);
-            font-size: 3rem;
-            font-weight: 600;
-            color: var(--dourado);
-            line-height: 1;
-        }
-
-        .timer-box .label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 5px;
-            color: var(--off-white);
-        }
-
-        /* ----- A MENSAGEM ----- */
-        .message-section {
-            text-align: center;
-            background-color: var(--branco);
+        .section {
+            background: var(--white);
+            margin: 20px 0;
+            padding: 25px;
             border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            border: 1px solid #EEEEEE;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        .section-title {
-            font-family: var(--fonte-titulo);
-            font-size: 3rem;
-            color: var(--verde-musgo);
-            margin-bottom: 20px;
-        }
-
-        .message-text {
-            font-size: 1.15rem;
-            color: var(--cinza-escuro);
-            max-width: 750px;
-            margin: 0 auto 30px auto;
-            line-height: 1.9;
-        }
-
-        /* ----- INFORMAÇÕES DO EVENTO ----- */
-        .event-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .event-card {
-            background: var(--off-white);
-            padding: 40px 30px;
-            border-radius: 8px;
-            text-align: center;
-            border-top: 4px solid var(--verde-musgo);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
-            transition: transform 0.3s ease;
-        }
-
-        .event-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .event-card i {
-            font-size: 2.2rem;
-            color: var(--dourado);
-            margin-bottom: 20px;
-        }
-
-        .event-card h3 {
-            font-family: var(--fonte-titulo);
-            font-size: 1.8rem;
-            color: var(--verde-musgo);
-            margin-bottom: 15px;
-        }
-
-        .event-card p {
-            color: var(--cinza-suave);
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .btn-outline {
+        .btn {
             display: inline-block;
-            margin-top: 15px;
-            padding: 10px 24px;
-            border: 1px solid var(--verde-musgo);
-            color: var(--verde-musgo);
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        .btn-outline:hover {
-            background-color: var(--verde-musgo);
-            color: var(--branco);
-        }
-
-        /* ----- CARTÃO INFORMATIVO DE CONSUMO ----- */
-        .info-box {
-            background-color: var(--verde-suave);
-            border-left: 4px solid var(--verde-musgo);
-            padding: 25px 30px;
-            margin: 40px 0;
-            border-radius: 0 8px 8px 0;
-            text-align: left;
-        }
-
-        .info-box h4 {
-            font-family: var(--fonte-titulo);
-            font-size: 1.5rem;
-            color: var(--verde-escuro);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .info-box p {
-            color: var(--cinza-escuro);
-            font-size: 0.98rem;
-            line-height: 1.8;
-        }
-
-        /* ----- GALERIA ----- */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 40px;
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            height: 250px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.08);
-        }
-
-        /* ----- RSVP / FORMULÁRIO ----- */
-        .rsvp-section {
-            background-color: var(--branco);
-            border-radius: 8px;
-            padding: 60px 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            border: 1px solid #EEEEEE;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.9rem;
-            color: var(--cinza-escuro);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #DDD;
-            border-radius: 6px;
-            font-family: var(--fonte-corpo);
-            font-size: 0.95rem;
-            transition: border-color 0.3s ease;
-            background-color: #FAFAFA;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--verde-musgo);
-            background-color: #FFF;
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 20px;
-            margin-top: 10px;
-        }
-
-        .radio-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            font-size: 0.95rem;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 15px;
-            background-color: var(--verde-musgo);
-            color: var(--branco);
+            border-radius: 5px;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background 0.3s;
             border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-weight: 500;
         }
 
-        .btn-submit:hover {
-            background-color: var(--verde-escuro);
+        .btn:hover {
+            background-color: #384728;
         }
 
-        /* ----- PERGUNTAS FREQUENTES ----- */
-        .faq-item {
-            background: var(--branco);
-            margin-bottom: 15px;
-            border-radius: 6px;
-            border: 1px solid #EAEAEA;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 20px;
-            font-family: var(--fonte-titulo);
-            font-size: 1.4rem;
-            color: var(--verde-musgo);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            user-select: none;
-        }
-
-        .faq-answer {
-            padding: 0 20px 20px 20px;
-            color: var(--cinza-suave);
-            font-size: 0.95rem;
-            display: none;
-            line-height: 1.7;
-            border-top: 1px solid #F5F5F5;
-            padding-top: 15px;
-        }
-
-        .faq-item.active .faq-answer {
-            display: block;
-        }
-
-        /* ----- FOOTER ----- */
-        footer {
-            background-color: var(--verde-escuro);
-            color: var(--off-white);
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 0.9rem;
-            border-top: 3px solid var(--dourado);
-        }
-
-        footer p.names {
-            font-family: var(--fonte-titulo);
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: var(--dourado);
-        }
-
-        /* ----- RESPONSIVIDADE ----- */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .hero p.tagline { font-size: 0.95rem; }
-            .section-title { font-size: 2.2rem; }
-            .timer-box { min-width: 75px; padding: 12px 8px; }
-            .timer-box .number { font-size: 2rem; }
-            .timer-box .label { font-size: 0.7rem; }
-            .container { padding: 50px 15px; }
-            .rsvp-section { padding: 40px 20px; }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
 
-    <!-- MÚSICA DE FUNDO -->
-    <audio id="bg-music" loop>
-        <!-- Áudio instrumental suave de demonstração -->
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-piano-115328.mp3" type="audio/mpeg">
-    </audio>
-    
-    <div class="music-control" id="music-btn" onclick="toggleMusic()" title="Ligar/Desligar Música">
-        <i class="fa-solid fa-music"></i>
-    </div>
-
-    <!-- TELA DE ABERTURA - ENVELOPE DE LUXO -->
+    <!-- Envelope Interativo -->
     <div id="envelope-overlay">
-        <div class="envelope-wrapper" onclick="openEnvelope()">
-            <div class="wax-seal">W&T</div>
+        <div class="envelope-card">
+            <h2>Você recebeu um convite especial!</h2>
+            <p style="margin-top: 10px;">Clique no lacre abaixo para abrir</p>
+            <div class="wax-seal" onclick="openEnvelope()">
+                W&T
+            </div>
         </div>
-        <div class="envelope-title">Wellington & Thayana</div>
-        <div class="envelope-subtitle">Clique para abrir o convite</div>
     </div>
 
-    <!-- TELA INICIAL / HERO -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <p class="tagline">Celebrando um novo capítulo de nossas vidas</p>
-            <h1>Wellington & Thayana</h1>
-            <p style="font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 25px;">29 DE OUTUBRO DE 2026</p>
-            <a href="#mensagem" class="btn-gold">Ver Convite</a>
+    <!-- Áudio de Fundo -->
+    <audio id="bg-music" loop>
+        <!-- Mantenha aqui o caminho exato do seu arquivo de música original -->
+        <source src="musica.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio HTML5.
+    </audio>
+
+    <!-- Botão de controle de música -->
+    <button class="music-control" id="music-btn" onclick="toggleMusic()">
+        <i class="fa-solid fa-music"></i>
+    </button>
+
+    <!-- Conteúdo Principal do Site -->
+    <div class="container">
+        <header>
+            <h1>Nossa Celebração</h1>
+            <p style="color: var(--accent-color); font-weight: bold;">00 . 00 . 0000</p>
+        </header>
+
+        <!-- Foto do Casal -->
+        <div class="photo-container">
+            <!-- COLOQUE O NOME DO SEU ARQUIVO DE FOTO ABAIXO NO ATRIBUTO src -->
+            <img src="foto-casal.jpg" alt="Foto dos Noivos">
         </div>
-    </section>
 
-    <!-- CONTAGEM REGRESSIVA -->
-    <section class="countdown-section">
-        <h2 class="countdown-title">Contagem Regressiva para o Nosso Dia</h2>
-        <div class="timer">
-            <div class="timer-box">
-                <span class="number" id="days">00</span>
-                <span class="label">Dias</span>
-            </div>
-            <div class="timer-box">
-                <span class="number" id="hours">00</span>
-                <span class="label">Horas</span>
-            </div>
-            <div class="timer-box">
-                <span class="number" id="minutes">00</span>
-                <span class="label">Minutos</span>
-            </div>
-            <div class="timer-box">
-                <span class="number" id="seconds">00</span>
-                <span class="label">Segundos</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- MENSAGEM DO CASAL -->
-    <section class="container message-section" id="mensagem">
-        <div class="foliage-divider">🌿</div>
-        <h2 class="section-title">Nosso Convite Especial</h2>
-        <p class="message-text">
-            Há momentos que merecem ser celebrados com quem faz parte da nossa história.
-            Após oficializarmos nossa união no casamento civil, gostaríamos de compartilhar esse dia especial ao lado da nossa família e dos nossos amigos.
-            <br><br>
-            Será uma grande alegria contar com a sua presença nesse momento de celebração e carinho!
-        </p>
-
-        <!-- CARTÃO INFORMATIVO DE CONSUMO ELEGANTE -->
-        <div class="info-box">
-            <h4><i class="fa-solid fa-utensils"></i> Almoço de Confraternização</h4>
-            <p>
-                Após a cerimônia civil, teremos a alegria de celebrar este momento em um almoço festivo. O restaurante funcionará em <strong>sistema de consumo individual</strong>, permitindo que cada convidado escolha livremente suas opções preferidas do cardápio.
-                <br><br>
-                <em>Mais do que qualquer presente, a sua companhia tornará este dia inesquecível para nós.</em>
+        <div class="section">
+            <h2>O Almoço</h2>
+            <p style="margin-top: 10px;">
+                Convidamos você para celebrar conosco em um almoço especial.
             </p>
+            <!-- Link com proteção noopener noreferrer -->
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn">Ver Localização</a>
         </div>
-    </section>
 
-    <!-- DETALHES DO EVENTO -->
-    <section class="container" style="padding-top: 0;" id="local">
-        <div class="foliage-divider">📍</div>
-        <h2 class="section-title" style="text-align: center;">Onde & Quando</h2>
-        
-        <div class="event-grid">
-            <div class="event-card">
-                <i class="fa-regular fa-calendar-check"></i>
-                <h3>Data & Horário</h3>
-                <p><strong>Quinta-feira, 29 de Outubro de 2026</strong></p>
-                <p>A partir das 12:00h</p>
-                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Casamento+Wellington+e+Thayana&dates=20261029T150000Z/20261029T190000Z&details=Almo%C3%A7o+de+celebra%C3%A7%C3%A3o+do+casamento+de+Wellington+e+Thayana.&location=Carmelita+Restaurante+-+Ceil%C3%A2ndia+Sul,+DF" target="_blank" class="btn-outline">
-                    <i class="fa-regular fa-calendar-plus"></i> Adicionar à Agenda
-                </a>
-            </div>
-
-            <div class="event-card">
-                <i class="fa-solid fa-location-dot"></i>
-                <h3>Recepção & Almoço</h3>
-                <p><strong>Carmelita Restaurante</strong></p>
-                <p>Ceilândia Sul - Brasília, DF</p>
-                <a href="https://maps.google.com/?q=Carmelita+Restaurante+Ceilandia+Sul" target="_blank" class="btn-outline">
-                    <i class="fa-solid fa-map-location-dot"></i> Como Chegar
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- GALERIA DE FOTOS -->
-    <section class="container" id="galeria">
-        <div class="foliage-divider">📸</div>
-        <h2 class="section-title" style="text-align: center;">Momentos Especiais</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="Casal 1">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80" alt="Casal 2">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=600&q=80" alt="Casal 3">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=600&q=80" alt="Casal 4">
-            </div>
-        </div>
-    </section>
-
-    <!-- FORMULÁRIO RSVP -->
-    <section class="container" id="rsvp">
-        <div class="rsvp-section">
-            <div class="foliage-divider" style="margin-top:0;">💌</div>
-            <h2 class="section-title" style="text-align: center; margin-bottom: 10px;">Confirmação de Presença</h2>
-            <p style="text-align: center; color: var(--cinza-suave); margin-bottom: 30px;">Por favor, confirme sua presença até o dia 15/10/2026 para organizar-mos todos os detalhes com carinho.</p>
-            
-            <form id="rsvpForm" onsubmit="handleRSVP(event)">
-                <div class="form-group">
-                    <label for="nome">Nome Completo:</label>
-                    <input type="text" id="nome" class="form-control" placeholder="Digite seu nome completo" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Você irá comparecer?</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="presenca" value="Sim" checked> Sim, com certeza!
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="presenca" value="Nao"> Infelizmente não poderei
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="acompanhantes">Quantidade de Acompanhantes (se houver):</label>
-                    <input type="number" id="acompanhantes" class="form-control" min="0" max="5" value="0">
-                </div>
-
-                <div class="form-group">
-                    <label for="mensagem_noivos">Mensagem para os Noivos (Opcional):</label>
-                    <textarea id="mensagem_noivos" class="form-control" rows="3" placeholder="Deixe um recado especial..."></textarea>
-                </div>
-
-                <button type="submit" class="btn-submit">Confirmar Presença</button>
+        <div class="section">
+            <h2>RSVP - Confirmação de Presença</h2>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                Por favor, confirme sua presença para organizarmos tudo da melhor forma.
+            </p>
+            <form id="rsvp-form" onsubmit="handleRSVP(event)">
+                <input type="text" placeholder="Seu nome completo" required>
+                <select required>
+                    <option value="">Você irá comparecer?</option>
+                    <option value="sim">Sim, com certeza!</option>
+                    <option value="nao">Infelizmente não poderei</option>
+                </select>
+                <button type="submit" class="btn">Enviar Confirmação</button>
             </form>
         </div>
-    </section>
+    </div>
 
-    <!-- PERGUNTAS FREQUENTES -->
-    <section class="container" id="faq">
-        <div class="foliage-divider">❓</div>
-        <h2 class="section-title" style="text-align: center;">Dúvidas Frequentes</h2>
-        <div style="max-width: 750px; margin: 0 auto;">
-            <div class="faq-item" onclick="toggleFAQ(this)">
-                <div class="faq-question">
-                    <span>Qual o traje recomendado?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Recomendamos o traje Esporte Fino / Passeio. Como se trata de um almoço de comemoração diurno, roupas confortáveis e elegantes são muito bem-vindas!
-                </div>
-            </div>
-
-            <div class="faq-item" onclick="toggleFAQ(this)">
-                <div class="faq-question">
-                    <span>Como funcionará a comanda do restaurante?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    O restaurante atenderá em sistema de consumo individual. Cada convidado ou família terá sua comanda própria para escolher pratos e bebidas à vontade no cardápio.
-                </div>
-            </div>
-
-            <div class="faq-item" onclick="toggleFAQ(this)">
-                <div class="faq-question">
-                    <span>Posso levar crianças?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Sim! Crianças são super bem-vindas para celebrar conosco este momento em família.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- RODAPÉ -->
-    <footer>
-        <p class="names">Wellington & Thayana</p>
-        <p>29.10.2026 • Carmelita Restaurante, Ceilândia Sul - DF</p>
-        <p style="margin-top: 15px; opacity: 0.7; font-size: 0.8rem;">Feito com carinho para celebrar o nosso amor ❤️</p>
-    </footer>
-
-    <!-- JAVASCRIPT / INTERATIVIDADE -->
     <script>
-        // Abertura do Envelope
+        let isPlaying = false;
+
         function openEnvelope() {
             const overlay = document.getElementById('envelope-overlay');
-            overlay.classList.add('hide');
+            if (overlay) overlay.classList.add('hide');
             
-            // Tentar tocar a música de fundo ao abrir o convite
             const music = document.getElementById('bg-music');
-            music.play().catch(e => console.log("A reprodução automática foi bloqueada pelo navegador. Use o botão de áudio."));
+            const btn = document.getElementById('music-btn');
             
-            // Soltar confetes sutis na abertura
-            confetti({
-                particleCount: 60,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
+            // Tenta reproduzir a música automaticamente ao clicar
+            if (music && btn) {
+                music.play().then(() => {
+                    isPlaying = true;
+                    btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+                }).catch(e => {
+                    console.log("Autoplay bloqueado pelo navegador:", e);
+                    isPlaying = false;
+                    btn.innerHTML = '<i class="fa-solid fa-music"></i>';
+                });
+            }
+            
+            // Ativa o efeito de confete
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+            }
         }
 
-        // Controle da Música de Fundo
-        let isPlaying = false;
         function toggleMusic() {
             const music = document.getElementById('bg-music');
             const btn = document.getElementById('music-btn');
             
+            if (!music) return;
+
             if (isPlaying) {
                 music.pause();
                 btn.innerHTML = '<i class="fa-solid fa-music"></i>';
+                isPlaying = false;
             } else {
                 music.play();
                 btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+                isPlaying = true;
             }
-            isPlaying = !isPlaying;
         }
 
-        // Contagem Regressiva
-        const weddingDate = new Date('October 29, 2026 12:00:00').getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-
-            if (distance < 0) {
-                document.getElementById('days').innerText = "00";
-                document.getElementById('hours').innerText = "00";
-                document.getElementById('minutes').innerText = "00";
-                document.getElementById('seconds').innerText = "00";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('days').innerText = days < 10 ? '0' + days : days;
-            document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
-            document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-
-        // FAQ Toggle
-        function toggleFAQ(element) {
-            element.classList.toggle('active');
-        }
-
-        // RSVP Form + Confetes
         function handleRSVP(event) {
             event.preventDefault();
-            const nome = document.getElementById('nome').value;
-            const presenca = document.querySelector('input[name="presenca"]:checked').value;
-            
-            if(presenca === 'Sim') {
-                confetti({
-                    particleCount: 120,
-                    spread: 80,
-                    origin: { y: 0.5 }
-                });
-                alert(`Obrigado, ${nome}! Sua presença foi confirmada com sucesso. Estamos ansiosos para celebrar com você!`);
-            } else {
-                alert(`Obrigado pelo retorno, ${nome}. Sentiremos sua falta nesse dia especial!`);
-            }
-            
-            document.getElementById('rsvpForm').reset();
+            alert("Obrigado pela confirmação!");
+            document.getElementById('rsvp-form').reset();
         }
     </script>
 </body>
