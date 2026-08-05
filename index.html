@@ -846,45 +846,45 @@
         // RSVP Form + Confetes
         function handleRSVP(event) {
             event.preventDefault();
-            const form = document.getElementById('rsvp-form'); // certifique-se de que o id do seu <form> seja este
+            const form = document.getElementById('rsvp-form') || document.querySelector('form');
 
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
+if (form) {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
 
-    const submitBtn = form.querySelector('button[type="submit"]');
-    submitBtn.innerText = "Enviando...";
-    submitBtn.disabled = true;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.innerText = "Enviando...";
+            submitBtn.disabled = true;
+        }
 
-    // Coleta os dados digitados pelos noivos/convidados
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
+        const formData = new FormData(form);
+        data = Object.fromEntries(formData);
+        data['Data/Hora'] = new Date().toLocaleString('pt-BR');
 
-    // Adiciona data e hora do envio automaticamente
-    data['Data/Hora'] = new Date().toLocaleString('pt-BR');
-
-    // COLE A SUA URL DO SHEET.BEST ENTRE AS ASPAS ABAIXO:
-    fetch('https://api.sheetbest.com/sheets/c3a8a4c5-67eb-4687-a8a2-37eb574e0a32', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        alert('Presença confirmada com sucesso!');
-        form.reset();
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        alert('Houve um erro ao enviar. Tente novamente.');
-    })
-    .finally(() => {
-        submitBtn.innerText = "Confirmar Presença";
-        submitBtn.disabled = false;
+        fetch('https://api.sheetbest.com/sheets/c3a8a4c5-67eb-4687-a8a2-37eb574e0a32', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            alert('Presença confirmada com sucesso!');
+            form.reset();
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Houve um erro ao enviar. Tente novamente.');
+        })
+        .finally(() => {
+            if (submitBtn) {
+                submitBtn.innerText = "Confirmar Presença";
+                submitBtn.disabled = false;
+            }
+        });
     });
-});
-    </script>
+}
+</script>
 </body>
 </html>
-
- 
