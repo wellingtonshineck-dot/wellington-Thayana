@@ -580,311 +580,57 @@
 
     <!-- TELA DE ABERTURA - ENVELOPE DE LUXO -->
     <div id="envelope-overlay">
-        <div class="envelope-wrapper" onclick="openEnvelope()">
-            <div class="wax-seal">W&T</div>
-        </div>
-        <div class="envelope-title">Wellington & Thayana</div>
-        <div class="envelope-subtitle">Clique para abrir o convite</div>
-    </div>
-
-    <!-- TELA INICIAL / HERO -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <p class="tagline">Recepção de casamento de</p>
-            <h1>Wellington & Thayana</h1>
-            <p style="font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 25px;">29 DE OUTUBRO DE 2026</p>
-            <a href="#mensagem" class="btn-gold">Ver Convite</a>
-        </div>
-    </section>
-
-    <!-- CONTAGEM REGRESSIVA -->
-    <section class="countdown-section">
-        <h2 class="countdown-title">Contagem Regressiva para o Nosso Dia</h2>
-        <div class="timer">
-            <div class="timer-box">
-                <span class="number" id="days">00</span>
-                <span class="label">Dias</span>
-            </div>
-            <div class="timer-box">
-                <span class="number" id="hours">00</span>
-                <span class="label">Horas</span>
-            </div>
-            <div class="timer-box">
-                <span class="number" id="minutes">00</span>
-                <span class="label">Minutos</span>
-            </div>
-            <div class="timer-box">
-                <span class="number" id="seconds">00</span>
-                <span class="label">Segundos</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- MENSAGEM DO CASAL -->
-    <section class="container message-section" id="mensagem">
-        <div class="foliage-divider">🌿</div>
-        <h2 class="section-title">Nosso Convite Especial</h2>
-        <p class="message-text">
-            Há momentos que merecem ser celebrados com quem faz parte da nossa história.
-            Após oficializarmos nossa união no casamento civil, gostaríamos de compartilhar um almço especial ao lado da nossa família e dos nossos amigos.
-            <br><br>
-            Será uma grande alegria contar com a sua presença nesse momento de celebração e carinho!
-        </p>
-
-        <!-- CARTÃO INFORMATIVO DE CONSUMO ELEGANTE -->
-        <div class="info-box">
-            <h4><i class="fa-solid fa-utensils"></i> Almoço de Confraternização</h4>
-            <p>
-                Após a cerimônia civil, teremos a alegria de celebrar este momento em um almoço festivo. O restaurante funcionará em <strong>sistema de consumo individual</strong>, permitindo que cada convidado escolha livremente suas opções preferidas do cardápio.
-                <br><br>
-                <em>Mais do que qualquer presente, a sua companhia tornará este dia inesquecível para nós.</em>
-            </p>
-        </div>
-    </section>
-
-    <!-- DETALHES DO EVENTO -->
-    <section class="container" style="padding-top: 0;" id="local">
-        <div class="foliage-divider">📍</div>
-        <h2 class="section-title" style="text-align: center;">Onde & Quando</h2>
-        
-        <div class="event-grid">
-            <div class="event-card">
-                <i class="fa-regular fa-calendar-check"></i>
-                <h3>Data & Horário</h3>
-                <p><strong>Quinta-feira, 29 de Outubro de 2026</strong></p>
-                <p>A partir das 12:00h</p>
-                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Casamento+Wellington+e+Thayana&dates=20261029T150000Z/20261029T190000Z&details=Almo%C3%A7o+de+celebra%C3%A7%C3%A3o+do+casamento+de+Wellington+e+Thayana.&location=Carmelita+Restaurante+-+Ceil%C3%A2ndia+Sul,+DF" target="_blank" class="btn-outline">
-                    <i class="fa-regular fa-calendar-plus"></i> Adicionar à Agenda
-                </a>
-            </div>
-
-            <div class="event-card">
-                <i class="fa-solid fa-location-dot"></i>
-                <h3>Recepção & Almoço</h3>
-                <p><strong>Carmelita Restaurante</strong></p>
-                <p>Ceilândia Sul - Brasília, DF</p>
-                <a href="https://maps.google.com/?q=Carmelita+Restaurante+Ceilandia+Sul" target="_blank" class="btn-outline">
-                    <i class="fa-solid fa-map-location-dot"></i> Como Chegar
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- GALERIA DE FOTOS -->
-    <section class="container" id="galeria">
-        <div class="foliage-divider">📸</div>
-        <h2 class="section-title" style="text-align: center;">Momentos Especiais</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="foto01.jpeg" alt="Casal 1">
-            </div>
-            <div class="gallery-item">
-                <img src="foto02.jpeg" alt="Casal 2">
-            </div>
-            <div class="gallery-item">
-                <img src="foto03.jpeg" alt="Casal 3">
-            </div>
-            <div class="gallery-item">
-                <img src="foto04.jpeg" alt="Casal 4">
-            </div>
-        </div>
-    </section>
-
-    <!-- FORMULÁRIO RSVP -->
-    <section class="container" id="rsvp">
-        <div class="rsvp-section">
-            <div class="foliage-divider" style="margin-top:0;">💌</div>
-            <h2 class="section-title" style="text-align: center; margin-bottom: 10px;">Confirmação de Presença</h2>
-            <p style="text-align: center; color: var(--cinza-suave); margin-bottom: 30px;">Por favor, confirme sua presença até o dia 15/10/2026 para organizar-mos todos os detalhes com carinho.</p>
-            
-            <form id="rsvpForm" onsubmit="handleRSVP(event)">
-                <div class="form-group">
-                    <label for="nome">Nome Completo:</label>
-                    <input type="text" id="nome" class="form-control" placeholder="Digite seu nome completo" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Você irá comparecer?</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="presenca" value="Sim" checked> Sim, com certeza!
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="presenca" value="Nao"> Infelizmente não poderei
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="acompanhantes">Quantidade de Acompanhantes (se houver):</label>
-                    <input type="number" id="acompanhantes" class="form-control" min="0" max="5" value="0">
-                </div>
-
-                <div class="form-group">
-                    <label for="mensagem_noivos">Mensagem para os Noivos (Opcional):</label>
-                    <textarea id="mensagem_noivos" class="form-control" rows="3" placeholder="Deixe um recado especial..."></textarea>
-                </div>
-
-                <button type="submit" class="btn-submit">Confirmar Presença</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- PERGUNTAS FREQUENTES -->
-    <section class="container" id="faq">
-        <div class="foliage-divider">❓</div>
-        <h2 class="section-title" style="text-align: center;">Dúvidas Frequentes</h2>
-        <div style="max-width: 750px; margin: 0 auto;">
-            <div class="faq-item" onclick="toggleFAQ(this)">
-                <div class="faq-question">
-                    <span>Qual o traje recomendado?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Recomendamos o traje Esporte Fino / Passeio. Como se trata de um almoço de comemoração diurno, roupas confortáveis e elegantes são muito bem-vindas!
-                </div>
-            </div>
-
-            <div class="faq-item" onclick="toggleFAQ(this)">
-                <div class="faq-question">
-                    <span>Como funcionará a comanda do restaurante?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    O restaurante atenderá em sistema de consumo individual. Cada convidado ou família terá sua comanda própria para escolher pratos e bebidas à vontade no cardápio.
-                </div>
-            </div>
-
-            <div class="faq-item" onclick="toggleFAQ(this)">
-                <div class="faq-question">
-                    <span>Posso levar crianças?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    Sim! Crianças são super bem-vindas para celebrar conosco este momento em família.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- RODAPÉ -->
-    <footer>
-        <p class="names">Wellington & Thayana</p>
-        <p>29.10.2026 • Carmelita Restaurante, Ceilândia Sul - DF</p>
-        <p style="margin-top: 15px; opacity: 0.7; font-size: 0.8rem;">Feito com carinho para celebrar o nosso amor ❤️</p>
-    </footer>
-
-    <!-- JAVASCRIPT / INTERATIVIDADE -->
-    <script>
-        // Abertura do Envelope
-        function openEnvelope() {
-            const overlay = document.getElementById('envelope-overlay');
-            overlay.classList.add('hide');
-            
-            // Tentar tocar a música de fundo ao abrir o convite
-            const music = document.getElementById('bg-music');
-            music.play().catch(e => console.log("A reprodução automática foi bloqueada pelo navegador. Use o botão de áudio."));
-            
-            // Soltar confetes sutis na abertura
-            confetti({
-                particleCount: 60,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
-        }
-
-        // Controle da Música de Fundo
-        let isPlaying = false;
-        function toggleMusic() {
-            const music = document.getElementById('bg-music');
-            const btn = document.getElementById('music-btn');
-            
-            if (isPlaying) {
-                music.pause();
-                btn.innerHTML = '<i class="fa-solid fa-music"></i>';
-            } else {
-                music.play();
-                btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
-            }
-            isPlaying = !isPlaying;
-        }
-
-        // Contagem Regressiva
-        const weddingDate = new Date('October 29, 2026 12:00:00').getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-
-            if (distance < 0) {
-                document.getElementById('days').innerText = "00";
-                document.getElementById('hours').innerText = "00";
-                document.getElementById('minutes').innerText = "00";
-                document.getElementById('seconds').innerText = "00";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('days').innerText = days < 10 ? '0' + days : days;
-            document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
-            document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-
-        // FAQ Toggle
-        function toggleFAQ(element) {
-            element.classList.toggle('active');
-        }
-
-        // RSVP Form + Confetes
-        function handleRSVP(event) {
-            event.preventDefault();
-            const form = document.getElementById('rsvp-form') || document.querySelector('form');
-
-if (form) {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const submitBtn = form.querySelector('button[type="submit"]');
-        if (submitBtn) {
-            submitBtn.innerText = "Enviando...";
-            submitBtn.disabled = true;
-        }
-
-        const formData = new FormData(form);
-        data = Object.fromEntries(formData);
-        data['Data/Hora'] = new Date().toLocaleString('pt-BR');
-
-        fetch('https://api.sheetbest.com/sheets/c3a8a4c5-67eb-4687-a8a2-37eb574e0a32', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-            alert('Presença confirmada com sucesso!');
-            form.reset();
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            alert('Houve um erro ao enviar. Tente novamente.');
-        })
-        .finally(() => {
-            if (submitBtn) {
-                submitBtn.innerText = "Confirmar Presença";
-                submitBtn.disabled = false;
-            }
-        });
-    });
+<script>
+// 1. Função para abrir o envelope
+function openEnvelope() {
+    const overlay = document.getElementById('envelope-overlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
 }
+
+// 2. Envio do Formulário para a Planilha do Google (Sheet.best)
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('rsvp-form') || document.querySelector('form');
+
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.innerText = "Enviando...";
+                submitBtn.disabled = true;
+            }
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            data['Data/Hora'] = new Date().toLocaleString('pt-BR');
+
+            fetch('https://api.sheetbest.com/sheets/c3a8a4c5-67eb-4687-a8a2-37eb574e0a32', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                alert('Presença confirmada com sucesso!');
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Houve um erro ao enviar. Tente novamente.');
+            })
+            .finally(() => {
+                if (submitBtn) {
+                    submitBtn.innerText = "Confirmar Presença";
+                    submitBtn.disabled = false;
+                }
+            });
+        });
+    }
+});
 </script>
 </body>
 </html>
