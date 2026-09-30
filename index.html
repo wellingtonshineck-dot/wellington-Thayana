@@ -857,7 +857,7 @@
             }
         }
 
-        // 5. RSVP Form + Google Apps Script
+        // 5. RSVP Form + Google Apps Script (Método Iframe Oculto)
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('rsvpForm');
 
@@ -871,22 +871,41 @@
                         submitBtn.disabled = true;
                     }
 
+                    // Cria um iframe oculto para submissão sem bloqueio
+                    const iframeName = 'hidden_iframe_' + Date.now();
+                    let iframe = document.createElement('iframe');
+                    iframe.name = iframeName;
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+
+                    // Cria um formulário temporário direcionado ao iframe
+                    let tempForm = document.createElement('form');
+                    tempForm.action = 'https://script.google.com/macros/s/AKfycbwLFZj-9Iw-12Y8e5nhiPUk9YssNpxEcXqwkIIatguwmw8tZPIs9_LIENWOPQz2ZIWCaw/exec';
+                    tempForm.method = 'POST';
+                    tempForm.target = iframeName;
+
+                    // Adiciona os campos do formulário original
                     const formData = new FormData(form);
-                    const data = Object.fromEntries(formData);
-                    data['Data/Hora'] = new Date().toLocaleString('pt-BR');
+                    for (let [key, value] of formData.entries()) {
+                        let input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = key;
+                        input.value = value;
+                        tempForm.appendChild(input);
+                    }
 
-                    // COLE AQUI ABAIXO A SUA URL DO GOOGLE APPS SCRIPT (entre aspas)
-                    const scriptURL = 'COLE_AQUI_A_NOVA_URL_DO_GOOGLE_APPS_SCRIPT_TERMINADA_EM_EXEC';
+                    // Adiciona Data/Hora
+                    let dateInput = document.createElement('input');
+                    dateInput.type = 'hidden';
+                    dateInput.name = 'Data/Hora';
+                    dateInput.value = new Date().toLocaleString('pt-BR');
+                    tempForm.appendChild(dateInput);
 
-                    fetch(scriptURL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: new URLSearchParams(data)
-                    })
-                    .then(() => {
+                    document.body.appendChild(tempForm);
+                    tempForm.submit();
+
+                    // Dispara a mensagem de sucesso para o usuário após meio segundo
+                    setTimeout(() => {
                         alert('Presença confirmada com sucesso!');
                         form.reset();
 
@@ -897,17 +916,16 @@
                                 origin: { y: 0.5 }
                             });
                         }
-                    })
-                    .catch(error => {
-                        console.error('Erro:', error);
-                        alert('Houve um erro ao enviar. Tente novamente.');
-                    })
-                    .finally(() => {
+
                         if (submitBtn) {
                             submitBtn.innerText = "Confirmar Presença";
                             submitBtn.disabled = false;
                         }
-                    });
+
+                        // Remove elementos temporários
+                        document.body.removeChild(tempForm);
+                        document.body.removeChild(iframe);
+                    }, 500);
                 });
             }
         });
